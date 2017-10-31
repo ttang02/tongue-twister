@@ -1,0 +1,105 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Tongue Twister API
+  description: Tongue Twister API
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+host: localhost:3000
+basePath: "/api"
+tags:
+- name: TongueTwister
+  description: API for tonguetwister in the system
+schemes:
+- http
+consumes:
+- application/json
+produces:
+- application/json
+paths:
+  "/tonguetwister":
+    post:
+      tags:
+      - TongueTwister
+      description: Create new tonguetwister in system
+      parameters:
+      - name: tonguetwister
+        in: body
+        description: TongueTwister that we want to create
+        schema:
+          "$ref": "#/definitions/TongueTwisters"
+      produces:
+      - application/json
+      responses:
+        '200':
+          description: New tonguetwister is created
+          schema:
+            "$ref": "#/definitions/TongueTwisters"
+    get:
+      tags:
+      - TongueTwister
+      summary: Get all tonguetwisters in system
+      responses:
+        '200':
+          description: OK
+          schema:
+            "$ref": "#/definitions/TongueTwisters"
+  "/tonguetwister/{tonguetwistedId}":
+    parameters:
+    - name: tonguetwistedId
+      in: path
+      required: true
+      description: ID of TongueTwister that we want to find
+      type: string
+    get:
+      tags:
+      - TongueTwister
+      summary: Get TongueTwister with given ID
+      responses:
+        '200':
+          description: TongueTwister is found
+          schema:
+            "$ref": "#/definitions/TongueTwisters"
+    delete:
+      summary: Delete TongueTwister with given ID
+      tags:
+      - TongueTwister
+      responses:
+        '200':
+          description: TongueTwister is deleted
+          schema:
+            "$ref": "#/definitions/TongueTwisters"
+    put:
+      summary: Update TongueTwister with give ID
+      tags:
+      - TongueTwister
+      parameters:
+      - name: tonguetwister
+        in: body
+        description: TongueTwister with new values of properties
+        schema:
+          "$ref": "#/definitions/TongueTwisters"
+      responses:
+        '200':
+          description: TongueTwister is updated
+          schema:
+            "$ref": "#/definitions/TongueTwisters"
+definitions:
+  TongueTwister:
+    required:
+    - phrase
+    - language
+    - _id
+    properties:
+      _id:
+        type: string
+        uniqueItems: true
+      phrase:
+        type: string
+        uniqueItems: true
+      language:
+        type: string
+  TongueTwisters:
+    type: array
+    "$ref": "#/definitions/TongueTwister"
