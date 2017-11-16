@@ -24,4 +24,4 @@ This project is a personal work to train as web developper.
 ### Versions
 
   - 0.1.0 : Rest API
-  - 0.2.0 : Add Swagger Doc : /api-docs
+  - 0.2.0 : Add Swagger Doc : Model TongueTwister and Languages

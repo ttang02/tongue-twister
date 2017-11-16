@@ -1,26 +1,32 @@
 //Modules
-var express = require('express');
-var mongodb = require('mongodb');
-var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-var yaml = require('yamljs');
+const express = require('express');
+const mongodb = require('mongodb');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const yaml = require('yamljs');
 
 //swagger
-var swaggerUi = require('swagger-ui-express');
-var swaggerdoc = yaml.load('./api/swagger/swagger.yaml');
+const swaggerUi = require('swagger-ui-express');
+const swaggerdoc = yaml.load('./api/swagger/swagger.yaml');
 
-//Models 
-var TongueTwister = require('./api/models/tongueTwisterModel');
+//Models (language first)
+const Languages = require('./api/models/languageModel');
+const TongueTwister = require('./api/models/tongueTwisterModel');
+
 
 //Import Routes
-var tonguetwisterRoutes = require('./api/routes/tonguetwisterRoutes');
+const languagesRoutes = require('./api/routes/languageRoutes');
+const tonguetwisterRoutes = require('./api/routes/tonguetwisterRoutes');
+
 
 //Set Globals
-var app = express();
-var port = process.env.PORT || 3000;
+let app = express();
+let port = process.env.PORT || 3000;
+
+
 
 //Database connection
-var mongoClient = mongodb.MongoClient;
+let mongoClient = mongodb.MongoClient;
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://lam:lamlam77@ds113915.mlab.com:13915/tonguetwisterdb', {
   useMongoClient: true,
@@ -32,11 +38,11 @@ app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
 //Routes
+languagesRoutes(app);
 tonguetwisterRoutes(app);
 
-app.get('/', function(req, res){
-  res.sendFile('./views/home.html');
-});
+//swagger 
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerdoc));
 
 //error 
 app.use(function(err, req, res, next){
@@ -44,10 +50,9 @@ app.use(function(err, req, res, next){
   res.status(422).send({error : err.message});
 });
 
-//swagger 
-app.use('/api-docs/', swaggerUi.serve, swaggerUi.setup(swaggerdoc));
 
-var server = app.listen(port, function(){
+
+app.listen(port, function(){
   console.log("App now running on port", port);
 });
   
