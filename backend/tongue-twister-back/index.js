@@ -1,6 +1,5 @@
 //Modules
 const express = require('express');
-const mongodb = require('mongodb');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const yaml = require('yamljs');
@@ -23,10 +22,7 @@ const tonguetwisterRoutes = require('./api/routes/tonguetwisterRoutes');
 let app = express();
 let port = process.env.PORT || 3000;
 
-
-
 //Database connection
-let mongoClient = mongodb.MongoClient;
 mongoose.Promise = Promise;
 mongoose.connect('mongodb://lam:lamlam77@ds113915.mlab.com:13915/tonguetwisterdb', {
   useMongoClient: true,
@@ -49,9 +45,6 @@ app.use(function(err, req, res, next){
   console.log(err);
   res.status(422).send({error : err.message});
 });
-
-
-
 app.listen(port, function(){
   console.log("App now running on port", port);
 });
