@@ -1,6 +1,0 @@
-version: '3'
-services:
-  tongue-twister-back:
-    build: .
-    ports:
-     - "80:3000"

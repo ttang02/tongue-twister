@@ -24,7 +24,7 @@ let port = process.env.PORT || 3000;
 
 //Database connection
 mongoose.Promise = Promise;
-mongoose.connect('mongodb://lam:lamlam77@ds113915.mlab.com:13915/tonguetwisterdb', {
+mongoose.connect('mongodb://mongo/tonguetwisterdb', {
   useMongoClient: true,
   promiseLibrary: global.Promise
 });
