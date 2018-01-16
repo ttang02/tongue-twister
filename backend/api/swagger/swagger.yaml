@@ -100,6 +100,22 @@ paths:
           description : The id can not be empty
         '500':
           description : Could not delete this tonguetwister id
+  "/tonguetwister/language/{codelanguage}":
+    parameters:
+    - name: codelanguage
+      in: path
+      required: true
+      description: codelanguage that we want to find
+      type: string
+    get:
+      tags:
+      - TongueTwister
+      summary: Get TongueTwisters with code language
+      responses:
+        '200':
+          description: TongueTwisters is found
+        '500':
+          description: Could not retrieve this code language
   "/language":
     post:
       tags:

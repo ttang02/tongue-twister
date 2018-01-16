@@ -15,4 +15,9 @@ module.exports = function(app){
         .get(tonguetwister.read)
         .put(tonguetwister.update)
         .delete(tonguetwister.delete)
+    ;
+
+    app.route('/api/tonguetwister/language/:language')
+        .get(tonguetwister.readBylanguage)
+    ;
 }

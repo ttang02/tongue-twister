@@ -7,7 +7,7 @@ exports.read = function (req, res) {
   TongueTwister.findById(req.params.ttId, function (err, tt) {
     if (err) {
       console.log(err);
-      res.status(500).send({message : "Could not retrieve tonguetwister with id"+req.params.ttId});
+      res.status(500).send({message : "Could not retrieve tonguetwister with id : "+req.params.ttId});
     }
     else{
       res.status(200).send(tt);
@@ -15,6 +15,29 @@ exports.read = function (req, res) {
   });
   console.log("API called GET : TongueTwister / GET by ID");
 };
+
+//GET array by language : TongueTwister
+exports.readBylanguage = function(req, res){
+  //params = language
+  Language.findOne({ codelang : req.paramlanguages},'_id',(err, idLanguage) =>{
+    if(idLanguage){
+      TongueTwister.find({ languageid : idLanguage}, (err, tts) =>{
+        if(err){
+          console.log('err');
+          res.status(500).send({message : "Could not retrieve tonguetwister by language code : "+req.params.language });
+        }
+        else{
+          res.status(200).send(tts);
+        }
+      });
+    }
+    else{
+      res.status(500).send({message : "Could not retrieve tonguetwister by language code : "+req.params.language});
+    }
+  });
+  console.log("API called GET by language : TongueTwister / GET By code language");
+}
+
 
 //POST new TongueTwister
 exports.create = function (req, res) {

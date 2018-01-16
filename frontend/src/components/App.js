@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
 
-const BASE_API_URL = 'localhost:4000/api/tonguetwister'
-
 class App extends Component{
     constructor(props){
         super(props);
